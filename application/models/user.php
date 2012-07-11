@@ -16,7 +16,14 @@ class User extends CI_Model
 
     }
         else{
-            echo "not exist";
+
+            $data1 = array(
+                'user_id' => $data['user_profile']['id'] ,
+                'name' => $data['user_profile']['name']
+
+            );
+
+            $this->db->insert('user', $data1);
 
         }
     }

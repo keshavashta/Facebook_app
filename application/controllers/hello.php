@@ -14,10 +14,9 @@ class Hello  extends CI_Controller
 
                 $data['user_profile'] = $this->facebook->api('/me');
                 $user_model_instance=  new User();
-                var_dump($data);
-//                $user_model_instance->save($data);
-//                $this->template->title('Home');
-//                $this->template->build('welcome/welcome',$data);
+                $user_model_instance->save($data);
+                $this->template->title('Home');
+                $this->template->build('welcome/welcome',$data);
             } catch (FacebookApiException $e) {
                echo $e;
                 $user = null;
