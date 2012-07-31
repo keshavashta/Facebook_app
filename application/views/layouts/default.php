@@ -1,18 +1,11 @@
-<html xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html>
 <head>
-    <!--    start css-->
-    <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css');?>" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo base_url("/assets/css/bootstrap.css");?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url('/assets/css/main.css');?>" rel="stylesheet" type="text/css"/>
 
-    <!-- css-->
-    <link href="<?php echo base_url("/assets/css/bootstrap.min.css"); ?>" rel="stylesheet">
-    <link href="<?php echo base_url("/assets/css/bootstrap-responsive.min.css"); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet" type="text/css"/>
-
-    <!--    end css-->
-
-    <!--    start js-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-    <!--    end js-->
+    <script src="<?php echo base_url('assets/js/bootstrap-dropdown.js');?>" type="text/javascript"></script>
     <title>
         <?php echo $template['title'];?>
     </title>
@@ -38,9 +31,9 @@
 <div id="content">
 
 
-    <div  class="navbar navbar-fixed-top ">
+    <div class="navbar navbar-fixed-top ">
         <div class="navbar-inner">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -54,20 +47,41 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
-                    <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+                    <ul class="nav pull-right">
+                        <li id="fat-menu" class="dropdown">
+                            <?php if (getUser()): ?>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">userName<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+                                <li class="divider"></li>
+
+                                <li><a
+                                    href="<?php echo get_logOutUrl()?>">Logout</a>
+                                </li>
+                            </ul>
+                            <?php else : ?>
+                            <a href="<?php echo get_loginUrl();?>" >Login
+                                by Facebook <b class="caret"></b></a>
+                            <?php endif?>
+                        </li>
+                    </ul>
                 </div>
                 <!--/.nav-collapse -->
             </div>
         </div>
 
     </div>
-    <div style="margin-top: 200px"; id="main_container" class="row">
+    <div id="main_container" class="row">
         <?php echo $template['body'];?>
     </div>
-    <div id="footer" class="row">
-        <hr >
-        <p>Tincidunt dis, massa dis proin? Porta nisi mus, cras? Ridiculus vel est tortor placerat, a odio nunc dignissim adipiscing! Augue! Nisi natoque lacus vut augue turpis parturient vel risus non enim aenean, amet sed natoque! Integer in enim adipiscing. Porttitor, cum et, lundium duis et augue? Mattis parturient, et tincidunt.</p>
-</div>
+    <div id="footer" >
+        <hr>
+        <p>Tincidunt dis, massa dis proin? Porta nisi mus, cras? Ridiculus vel est tortor placerat, a odio nunc
+            dignissim
+            adipiscing! Augue! Nisi natoque lacus vut augue turpis parturient vel risus non enim aenean, amet sed
+            natoque!
+            Integer in enim adipiscing. Porttitor, cum et, lundium duis et augue? Mattis parturient, et tincidunt.</p>
+    </div>
 
 </body>
 </html>

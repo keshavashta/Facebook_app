@@ -18,19 +18,29 @@ class Welcome extends CI_Controller
      * map to /index.php/welcome/<method_name>
      * @see http://codeigniter.com/user_guide/general/urls.html
      */
+    function about_us(){
+        $this->template->title('About Us');
+        $this->template->build('about_us');
+    }
 
+      function oauth(){
+          echo 'hello';
+      }
     function  index(){
 
 
-
-        $user = $this->facebook->getUser();
+       $user=$this->facebook->getUser();
 
 
 
         if ($user) {
             redirect(base_url("/hello")) ;
         } else {
-            $data['login_url'] = $this->facebook->getLoginUrl();
+            $params = array(
+                'scope' => 'read_stream, friends_likes',
+                'redirect_uri' => 'http://facebookapp.localhost.com/hello/oauth'
+            );
+            $data['login'] = $this->facebook->getLoginUrl($params);
         }
         $this->template->title('Home');
         $this->template->build('welcome/index.php',$data);

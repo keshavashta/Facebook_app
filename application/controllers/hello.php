@@ -8,6 +8,22 @@
  */
 class Hello  extends CI_Controller
 {
+    function oauth()
+    {
+//        try {
+
+//            $logoutUrl = $this->facebook->getLogoutUrl(array('next' => 'logout.php'));
+//            $this->template->title('Home');
+            redirect(base_url("/welcome/")) ;
+            //$this->template->build('welcome/welcome_user',$data['']);
+
+//        } catch (FacebookApiException $e) {
+//            echo $e;
+//            $user = null;
+//        }
+
+    }
+
     function  index(){
 
             try {
