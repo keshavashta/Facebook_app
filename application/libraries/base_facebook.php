@@ -144,6 +144,7 @@ abstract class BaseFacebook
         'code',
         'state',
         'signed_request',
+        'base_domain'
     );
 
     /**
@@ -430,7 +431,7 @@ abstract class BaseFacebook
 
         // as a fallback, just return whatever is in the persistent
         // store, knowing nothing explicit (signed request, authorization
-        // code, etc.) was present to shadow it (or we saw a code in $_REQUEST,
+        // code, etc.) was present to shadow it (or we saw a code in $_GET,
         // but it's the same as what's in the persistent store)
         return $this->getPersistentData('access_token');
     }
@@ -444,9 +445,9 @@ abstract class BaseFacebook
     public function getSignedRequest()
     {
         if (!$this->signedRequest) {
-            if (isset($_REQUEST['signed_request'])) {
+            if (isset($_GET['signed_request'])) {
                 $this->signedRequest = $this->parseSignedRequest(
-                    $_REQUEST['signed_request']);
+                    $_GET['signed_request']);
             } else if (isset($_COOKIE[$this->getSignedRequestCookieName()])) {
                 $this->signedRequest = $this->parseSignedRequest(
                     $_COOKIE[$this->getSignedRequestCookieName()]);
@@ -654,16 +655,16 @@ abstract class BaseFacebook
      */
     protected function getCode()
     {
-        if (isset($_REQUEST['code'])) {
+        if (isset($_GET['code'])) {
             if ($this->state !== null &&
-                isset($_REQUEST['state']) &&
-                $this->state === $_REQUEST['state']
+                isset($_GET['state']) &&
+                $this->state === $_GET['state']
             ) {
 
                 // CSRF state has done its job, so clear it
                 $this->state = null;
                 $this->clearPersistentData('state');
-                return $_REQUEST['code'];
+                return $_GET['code'];
             } else {
                 self::errorLog('CSRF state token does not match one provided.');
                 return false;

@@ -9,9 +9,9 @@
 class Friend extends CI_Model
 {
      function get_active_friends($friend_id){
-         $this->db->select('name,age,blood_gp');
+         $this->db->select('*');
          $this->db->from('user');
-         $this->db->where('fb_id', $friend_id);
+         $this->db->where('user_id', $friend_id);
          $result = $this->db->get()->row();
          return $result;
      }
@@ -20,15 +20,15 @@ class Friend extends CI_Model
         $this->db->select('name,age,blood_gp');
         $this->db->from('user');
         $this->db->where('fb_id', $friend_id);
-        $this->db->where('blood_gp', !null);
+        $this->db->where('blood_gp !=',null );
         $result = $this->db->get()->row();
         return $result;
     }
 
-    function get_friends_with_blood_gps($friend_id,$blood_gp){
-        $this->db->select('name,age,blood_gp');
+    function get_friend_with_blood_gps($friend_id,$blood_gp){
+        $this->db->select('*');
         $this->db->from('user');
-        $this->db->where('fb_id', $friend_id);
+        $this->db->where('user_id', $friend_id);
         $this->db->where('blood_gp', $blood_gp);
         $result = $this->db->get()->row();
         return $result;

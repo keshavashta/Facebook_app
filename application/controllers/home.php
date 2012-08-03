@@ -30,4 +30,6 @@ class Home    extends  CI_Controller
         $this->template->title('Home');
         $this->template->build('welcome/index.php',$data);
     }
+
+
 }

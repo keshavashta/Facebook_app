@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="<?php echo base_url("/assets/css/bootstrap.css");?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url("/assets/css/bootstrap.css");?>" rel="stylesheet" type="text/css"/>
+    <link href="<?php echo base_url("/assets/css/datepicker.css");?>" rel="stylesheet" type="text/css"/>
     <link href="<?php echo base_url('/assets/css/main.css');?>" rel="stylesheet" type="text/css"/>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url('assets/js/bootstrap-dropdown.js');?>" type="text/javascript"></script>
+    <script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>" type="text/javascript"></script>
     <title>
         <?php echo $template['title'];?>
     </title>
@@ -13,20 +15,20 @@
 </head>
 
 <body class="container">
-
+<!---->
 <!--    Start Fb-->
-<div id='fb-root'></div>
-<script src='http://connect.facebook.net/en_US/all.js'></script>
-<script>
-    FB.init({
-        appId:'174961989300941',
-        status:true, // check login status
-        cookie:true, // enable cookies to allow the server to access the session
-        xfbml:true, // parse XFBML
-        oauth:true
-    });
-
-</script>
+<!--<div id='fb-root'></div>-->
+<!--<script src='http://connect.facebook.net/en_US/all.js'></script>-->
+<!--<script>-->
+<!--    FB.init({-->
+<!--        appId:'174961989300941',-->
+<!--        status:true, // check login status-->
+<!--        cookie:true, // enable cookies to allow the server to access the session-->
+<!--        xfbml:true, // parse XFBML-->
+<!--        oauth:true-->
+<!--    });-->
+<!---->
+<!--</script>-->
 <!--    End Fb-->
 <div id="content">
 
@@ -60,7 +62,7 @@
                                 </li>
                             </ul>
                             <?php else : ?>
-                            <a href="<?php echo get_loginUrl();?>" >Login
+                            <a href="<?php echo get_loginUrl();?>">Login
                                 by Facebook <b class="caret"></b></a>
                             <?php endif?>
                         </li>
@@ -71,10 +73,10 @@
         </div>
 
     </div>
-    <div id="main_container" class="row">
+    <div id="main_container" >
         <?php echo $template['body'];?>
     </div>
-    <div id="footer" >
+    <div id="footer">
         <hr>
         <p>Tincidunt dis, massa dis proin? Porta nisi mus, cras? Ridiculus vel est tortor placerat, a odio nunc
             dignissim

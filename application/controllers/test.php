@@ -13,9 +13,16 @@ class Test extends CI_Controller
         echo 'my';
     }
 
-    function  reset_user(){
+    function  reset_user()
+    {
         $this->facebook->resetUser();
     }
+
+    function test_age()
+    {
+        echo age_from_dob("16-12-1986");
+    }
+
     function curl_test()
     {
         $ch1 = curl_init();
@@ -67,9 +74,15 @@ class Test extends CI_Controller
         echo getUser();
     }
 
+    function user_id()
+    {
+        var_dump($this->facebook->getUser());
+    }
+
     function get_user_id()
     {
-        try {var_dump($this->facebook->get);
+        try {
+            var_dump($this->facebook->get);
             $user_profile = $this->facebook->api('/me');
             var_dump($user_profile);
         } catch (FacebookApiException $e) {
@@ -80,7 +93,7 @@ class Test extends CI_Controller
     function friends()
     {
         $friendsLists = $this->facebook->api('/me/friends');
-        $instance = new Friend();
+         $instance = new Friend();
         $existing_friend = array();
         foreach ($friendsLists as $friends) {
             foreach ($friends as $friend) {
@@ -88,7 +101,7 @@ class Test extends CI_Controller
                 $id = $friend['id'];
                 $name = $friend['name'];
                 echo $name;
-                $temp = $instance->get_active_friends($id);
+                   $temp = $instance->get_active_friends($id);
                 if (!empty($temp))
                     $existing_friend[] = $temp;
             }

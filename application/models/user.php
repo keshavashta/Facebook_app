@@ -10,34 +10,35 @@ class User extends CI_Model
 {
     public function save($data)
     {
-    if($this->is_userExist($data['user_profile']['id']))
-    {
-        echo ' exist';
+        $name_and_id = array(
+            'user_id' => $data['user_profile']['id'],
+            'name' => $data['user_profile']['name']
+        );
+
+        $this->db->insert('user', $name_and_id);
+
 
     }
-        else{
 
-            $data1 = array(
-                'user_id' => $data['user_profile']['id'] ,
-                'name' => $data['user_profile']['name']
-
-            );
-
-            $this->db->insert('user', $data1);
-
-        }
+    public function get_user_profile($id)
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->where('user_id', $id);
+        $result = $this->db->get()->row();
+        return $result;
     }
 
     public function update_user($result)
     {
         $data = array(
             'name' => $result['name'],
-            'age' => $result['age'],
+            'dob' => $result['dob'],
             'blood_gp' => $result['blood_gp'],
-            'address'   =>$result['name']
+            'address' => $result['address']
         );
 
-        $this->db->where('user_id', $result['id']);
+        $this->db->where('user_id', $result['user_id']);
         $this->db->update('user', $data);
     }
 
@@ -46,12 +47,12 @@ class User extends CI_Model
 
     }
 
-    public function is_userExist($id)
+    public function is_user_exist($id)
     {
         $query = $this->db->get_where('user', array('user_id' => $id));
-        $rowcount = $query->result();
+        $result = $query->result();
 
-        if (empty($rowcount))
+        if (empty($result))
             return false;
         else return true;
     }

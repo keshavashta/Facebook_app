@@ -64,7 +64,7 @@ $autoload['libraries'] = array('Template','Facebook','database','session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','app_helper');
+$autoload['helper'] = array('url','app_helper','form');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('user');
+$autoload['model'] = array('user','friend');
 
 
 /* End of file autoload.php */
