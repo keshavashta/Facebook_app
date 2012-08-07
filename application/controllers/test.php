@@ -13,6 +13,13 @@ class Test extends CI_Controller
         echo 'my';
     }
 
+    function post_to_friendWall()
+    {
+        $post_id = $this->facebook->api('/' . "100001311513120" . '/feed', 'POST',
+            array('message' => 'This post has been made on a friend\'s wall',));
+
+    }
+
     function  reset_user()
     {
         $this->facebook->resetUser();
@@ -93,15 +100,17 @@ class Test extends CI_Controller
     function friends()
     {
         $friendsLists = $this->facebook->api('/me/friends');
-         $instance = new Friend();
-        $existing_friend = array();
+//<!--        $instance = new Friend();-->
+//<!--        $existing_friend = array();-->
         foreach ($friendsLists as $friends) {
             foreach ($friends as $friend) {
                 // do something with the friend, but you only have id and name
                 $id = $friend['id'];
                 $name = $friend['name'];
                 echo $name;
-                   $temp = $instance->get_active_friends($id);
+                echo $id;
+                echo "<br/>";
+//                $temp = $instance->get_active_friends($id);
                 if (!empty($temp))
                     $existing_friend[] = $temp;
             }

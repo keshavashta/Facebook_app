@@ -58,26 +58,56 @@ class Hello extends CI_Controller
         $user_model_instance->update_user($data);
     }
 
+    function post_to_friend_wall()
+    {
+        $user_id = $_GET['user_id'];
+        if(empty($user_id))
+        {
+            echo false;
+            return;
+        }
+        $instance =new User();
+        $profile=$instance->get_user_profile($user_id);
+        $name =$profile->name;
+        $blood_gp=$profile->blood_gp;
+        try {
+            $post_id = $this->facebook->api('/' . $user_id . '/feed', 'POST',
+                array('message' => get_blood_gp_req_msg($blood_gp,$name),));
+            echo true;
+        } catch (FacebookApiException $e) {
+            echo false;
+        }
+    }
+     function post_to_wall(){
+         echo false;
+     }
     function friends()
     {
         $friendsLists = $this->facebook->api('/me/friends');
-         $instance = new Friend();
-        $user_instance=new User();
-        $blood_gp=$user_instance->get_user_profile(getUser())->blood_gp;
+        $instance = new Friend();
+        $user_instance = new User();
+        $blood_gp = $user_instance->get_user_profile(getUser())->blood_gp;
         $friend_with_same_gp = array();
+        $friend_with_diff_gp = array();
+        $unknown_friends = array();
         foreach ($friendsLists as $friends) {
             foreach ($friends as $friend) {
 
                 $id = $friend['id'];
                 $name = $friend['name'];
-//                echo $id;
-                   $temp = $instance->get_friend_with_blood_gps($id,$blood_gp);
+                $temp = $instance->get_friend_with_blood_gps($id, $blood_gp);
                 if (!empty($temp))
                     $friend_with_same_gp[] = $temp;
+                $temp = $instance->get_friends_with_diff_gp($id, $blood_gp);
+                if (!empty($temp))
+                    $friend_with_diff_gp[] = $temp;
+                if (!$instance->is_user_exist($id))
+                    $unknown_friends[] = $name;
             }
         }
-
-        $data['friend_with_same_gp']=$friend_with_same_gp;
+        $data['friend_with_diff_gp'] = $friend_with_diff_gp;
+        $data['friend_with_same_gp'] = $friend_with_same_gp;
+        $data['unknown_friends'] = $unknown_friends;
         $this->template->title('Friends');
         $this->template->build('welcome/friends', $data);
 

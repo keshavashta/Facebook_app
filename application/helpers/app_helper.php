@@ -10,10 +10,15 @@ function get_loginUrl()
 {
     $ci =& get_instance();
     $params = array(
-        'data-scope' => "email,publish_stream",
+        'scope' => "email,publish_stream",
         'redirect_uri' => 'http://facebookapp.localhost.com/hello/oauth'
     );
     return $ci->facebook->getLoginUrl($params);
+}
+
+function get_blood_gp_req_msg($blood_gp, $name)
+{
+    return 'Hey ' . $name .", Blood Req of your Blood Group ( " . $blood_gp . " ).";
 }
 
 function get_logOutUrl()
@@ -27,7 +32,7 @@ function get_logOutUrl()
 function get_age_from_dob($dob)
 {
 
-    list($y, $m, $d )= explode('-', $dob);
+    list($y, $m, $d) = explode('-', $dob);
 
     if (($m = (date('m') - $m)) < 0) {
         $y++;
